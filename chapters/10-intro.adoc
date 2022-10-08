@@ -1,3 +1,52 @@
-=== Introdução
+=== Troubleshoot
 
-TODO
+.Antes de Enviar
+* Escreva testes simples se os fornecidos não são suficientes
+* O tempo limite é muito curto? Se sim, escreva um caso de teste de tamanho máximo.
+* O uso de memória está dentro do limite?
+* Alguma coisa pode dar overflow?
+* Tenha certeza de que está enviando o arquivo certo
+
+.Wrong Answer
+* Imprima sua solução! Imprima também os resultados intermediários.
+* Limpou todas as estruturas de dados entre os casos de teste?
+* Seu algoritmo trata toda a entrada?
+* Leia o problema inteiro de novo.
+* Todos os casos especiais são tratados?
+* Você entendeu o problema corretamente?
+* Alguma variável não inicializada?
+* Algum overflow?
+* Não está confundindo M e N, i e j, etc?
+* Tem certeza que seu algoritmo funciona?
+* Quais os casos especiais que você pode não ter pensado?
+* Tem certeza que as funções da STL funcionam como você espera?
+* Adicione alguns asserts, talvez tente enviar novamente.
+* Crie alguns casos de teste para passar pelo algoritmo.
+* Explique seu algoritmo para um colega de time.
+* Peça para o colega de time olhar seu código.
+* Vai dar uma volta
+* Está imprimindo corretamente?
+* Reescreva toda sua solução ou peça para alguém fazer isso.
+
+.Runtime Error
+* Testou todos os casos especiais localmente?
+* Alguma variável não inicializada?
+* Escrevendo ou lendo fora do tamanho de algum vetor?
+* Algum assert que possa falhar?
+* Alguma possível divisão por 0? (ou mod 0)
+* Alguma possível recursão infinita
+* Ponteiros ou iteradores invalidados?
+* Usando muita memória?
+* Debug enviando novamente
+
+.Time Limit Exceeded
+* Algum possível loop infinito?
+* Qual a complexidade do seu algoritmo?
+* Copiando muitos dados desnecessariamente? (use referências)
+* A entrada ou a saída não são muito grandes? (considere usar scanf)
+* Evite vector e map
+* O que seus colegas acham do algoritmo?
+
+.Memory Limit Exceeded
+* Qual o máximo de memória que seu algoritmo deveria precisar?
+* Limpou todas as estruturas de dados entre casos de teste?
