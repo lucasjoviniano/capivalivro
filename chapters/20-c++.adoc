@@ -1,0 +1,6 @@
+=== template.cpp
+
+[source, c++]
+----
+include::../code/c++/template.cpp[]
+----

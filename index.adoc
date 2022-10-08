@@ -12,6 +12,9 @@
 == Introdução
 include::chapters/10-intro.adoc[]
 
+== C++ e STL
+include::chapters/20-c++.adoc[]
+
 ifdef::backend-docbook[]
 [index]
 Index
