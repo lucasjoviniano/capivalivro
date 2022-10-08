@@ -1,0 +1,20 @@
+=== Fenwick Tree
+
+*Descrição:* Calcula soma de prefixos em um array.
+
+[source, c++]
+----
+include::../code/c++/fenwick-tree.cpp[]
+----
+
+=== Segment Tree
+
+*Descrição*: Permite responder queries em intervalos de um array de forma eficiente, incluindo:
+
+* Achar a soma de elementos consecutivos
+* Achar o menor elemento em um range
+
+[source, c++]
+----
+include::../code/c++/segment-tree.cpp[]
+----

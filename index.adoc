@@ -17,6 +17,9 @@ include::chapters/10-intro.adoc[]
 == C++ e STL
 include::chapters/20-c++.adoc[]
 
+== Estruturas de Dados
+include::chapters/30-estruturas-de-dados.adoc[]
+
 ifdef::backend-docbook[]
 [index]
 Index
