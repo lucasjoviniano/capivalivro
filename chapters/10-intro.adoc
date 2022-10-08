@@ -3,8 +3,8 @@
 .Antes de Enviar
 * Escreva testes simples se os fornecidos não são suficientes
 * O tempo limite é muito curto? Se sim, escreva um caso de teste de tamanho máximo.
-* O uso de memória está dentro do limite?
-* Alguma coisa pode dar overflow?
+* O uso de memória está no limite?
+* Algo pode dar overflow?
 * Tenha certeza de que está enviando o arquivo certo
 
 .Wrong Answer
@@ -16,7 +16,7 @@
 * Você entendeu o problema corretamente?
 * Alguma variável não inicializada?
 * Algum overflow?
-* Não está confundindo M e N, i e j, etc?
+* Não está confundindo M e N, i e j, etc.?
 * Tem certeza que seu algoritmo funciona?
 * Quais os casos especiais que você pode não ter pensado?
 * Tem certeza que as funções da STL funcionam como você espera?
@@ -33,7 +33,7 @@
 * Alguma variável não inicializada?
 * Escrevendo ou lendo fora do tamanho de algum vetor?
 * Algum assert que possa falhar?
-* Alguma possível divisão por 0? (ou mod 0)
+* Alguma possível divisão por 0? (Ou mod 0)
 * Alguma possível recursão infinita
 * Ponteiros ou iteradores invalidados?
 * Usando muita memória?
@@ -42,8 +42,8 @@
 .Time Limit Exceeded
 * Algum possível loop infinito?
 * Qual a complexidade do seu algoritmo?
-* Copiando muitos dados desnecessariamente? (use referências)
-* A entrada ou a saída não são muito grandes? (considere usar scanf)
+* Copiando muitos dados desnecessariamente? (Use referências)
+* A entrada ou a saída não são muito grandes? (Considere usar scanf)
 * Evite vector e map
 * O que seus colegas acham do algoritmo?
 
