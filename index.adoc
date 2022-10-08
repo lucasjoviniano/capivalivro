@@ -9,6 +9,7 @@
 :data-uri:
 :lang: pt-BR 
 :source-highlighter: rouge
+:rouge-style: github
 
 == Introdução
 include::chapters/10-intro.adoc[]
