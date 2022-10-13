@@ -1,8 +1,7 @@
 = Capivalivro 
 :author: Lucas Joviniano 
 :email: lucas.joviniano@ufv.br 
-:revnumber: 1.0
-:revdate: 07/10/2022 
+:revdate: 07/10/2022
 :doctype: book
 :toc:
 :icons: font
@@ -15,10 +14,13 @@
 include::chapters/10-intro.adoc[]
 
 == C++ e STL
-include::chapters/20-c++.adoc[]
+include::chapters/20-stl.adoc[]
 
 == Estruturas de Dados
 include::chapters/30-estruturas-de-dados.adoc[]
+
+== Processamento de Strings
+include::chapters/40-processamento-de-strings.adoc[]
 
 ifdef::backend-docbook[]
 [index]

@@ -1,0 +1,301 @@
+=== template.cpp
+
+[source, c++]
+----
+include::../code/c++/template.cpp[]
+----
+
+=== Complex
+
+
+[source, c++]
+----
+#include <complex>
+
+complex<double> point(10.0, 1.0);
+
+std::real(point);     // 10
+std::imag(point);     // 1
+std::abs(point);      // 10.0499
+std::arg(point);      // 0.0996687
+std::norm(point);     // 101
+std::conj(point);     // (10, -1)
+std::polar(2.0, 0.5); // (1.75517,0.958851)
+----
+
+=== Pair
+
+[source, c++]
+----
+#include <utility>
+
+pair<T, U> p;
+auto m = make_pair(13, "Lula");
+----
+
+=== List
+
+[source, c++]
+----
+#include <list>
+
+list<int> first;          // Lista vazia
+list<int> second(4, 100); // Lista com 4 elementos iguais a 100
+list<int> third(second.begin(), second.end()); // Itera por second
+list<int> fourth(third); // Copia third
+
+vector<int> v{16, 2, 77, 29, 9);
+list<int> fifth(v.begin(), v.begin() + 3); // [16, 2, 77, 29]
+
+fifth.begin(); // 16
+fifth.rbegin(); // 29
+fifth.size(); // 4 - O(n)
+fifth.empty(); // false
+fifth.clear(); // []
+fifth.front(); // 16
+fifth.back(); // 29
+fifth.push_back(9); // [16, 2, 77, 29, 9] - O(1)
+fifth.push_front(1); // [1, 16, 2, 77, 29, 9] - O(n)
+fifth.pop_back(); // [1, 16, 2, 77, 29] - O(1)
+fifth.pop_front(); // [16, 2, 77, 29] - O(n)
+fifth.insert(next(fifth.begin(), 3); // [16, 3, 2, 77, 29]
+fifth.erase(fifth.begin()); // [2, 77, 29]
+fifth.erase(fifth.begin(), fifth.end()); // []
+----
+
+=== Vector
+
+[source, c++]
+----
+#include <vector>
+
+vector<int> first;          // Vetor vazio
+vector<int> second(4, 100); // Vetor com 4 elementos iguais a 100
+vector<int> third(second.begin(), second.end()); // Itera por second
+vector<int> fourth(third); // Copia third
+
+int v[] = {16, 2, 77, 29, 9);
+vector<int> fifth(v, v + sizeof(v) / sizeof(int); // [16, 2, 77, 29]
+
+fifth.begin(); // 16
+fifth.rbegin(); // 29
+fifth.size(); // 4
+fifth.empty(); // false
+fifth.clear(); []
+fifth.reserve(10); // Aloca uma capacidade mínima para o vetor
+fifth.front(); // 16
+fifth.back(); // 29
+fifth.push_back(9); // [16, 2, 77, 29, 9]
+fifth.pop_back(); // [16, 2, 77, 29]
+fifth.erase(fifth.begin()); // [2, 77, 29, 9]
+fifth.erase(fifth.begin(), fifth.end()); // []
+----
+
+=== Deque
+
+[source, c++]
+----
+#include <deque>
+
+deque<int> first;          // Deque vazio
+deque<int> second(4, 100); // Lista com 4 elementos iguais a 100
+deque<int> third(second.begin(), second.end()); // Itera por second
+deque<int> fourth(third); // Copia third
+
+vector<int> v{16, 2, 77, 29, 9);
+deque<int> fifth(v.begin(), v.begin() + 3); // [16, 2, 77, 29]
+
+fifth.begin(); // 16
+fifth.rbegin(); // 29
+fifth.size(); // 4
+fifth.empty(); // false
+fifth.clear(); // []
+fifth.front(); // 16
+fifth.back(); // 29
+fifth.push_back(9); // [16, 2, 77, 29, 9]
+fifth.push_front(1); // [1, 16, 2, 77, 29, 9]
+fifth.pop_back(); // [1, 16, 2, 77, 29]
+fifth.pop_front(); // [16, 2, 77, 29]
+fifth.insert(next(fifth.begin(), 3); // [16, 3, 2, 77, 29]
+fifth.erase(fifth.begin()); // [2, 77, 29]
+fifth.erase(fifth.begin(), fifth.end()); // []
+----
+
+=== Queue
+
+[source, c++]
+----
+#include <queue>
+
+deque<int> d{10, 12, 13};
+queue<int> q(d);
+
+q.back(); // 13
+q.empty(); // false
+q.front(); // 10
+q.pop(); // [12, 13]
+q.push(30); // [12, 13, 30]
+q.size(); // 3
+----
+
+=== Stack
+
+[source, c++]
+----
+#include <stack>
+
+deque<int> d{10, 12, 13};
+stack<int> s(d);
+
+q.empty(); // false
+q.top(); // 13
+q.pop(); // [10, 12]
+q.push(30); // [10, 12, 30]
+q.size(); // 3
+----
+
+=== Map
+
+Há também a variante unordered_map, que usa Hash Table (é mais rápido)
+[source, c++]
+----
+#include <map>
+#include <string>
+
+map<string, int> m;
+m['a'] = 10;
+m['b'] = 30;
+m['c'] = 50;
+m['d'] = 70;
+
+m.begin(); // (a, 10)
+m.empty(); // false
+m.size(); // 4;
+m.count('f'); // 0
+m.find('c'); // iterador para c
+----
+
+=== Set
+Há também a variante unordered_set, que usa Hash Table (é mais rápido)
+
+[source, c++]
+----
+#include <set>
+
+set<int> s{10, 12, 13};
+
+s.begin(); // 10
+m.empty(); // false
+m.size(); // 3;
+m.insert(30); // [10, 12, 13, 30]
+m.find(13); // iterador para 13
+----
+
+=== Bitset
+
+Mesma coisa que um vetor de booleanos, porém com tamanho fixo.
+
+[source, c++]
+----
+#include <bitset>
+
+bitset<4> bs; // 0000
+bs.set(); // 1111
+bs.to_string(); // "1111"
+bs.to_ulong(); // 15
+bs.to_ullong(); // 15
+bs.reset(); // 0000
+bs.flip(2); // 0100
+bs.flip(); // 1011
+----
+
+=== String
+
+[source, c++]
+----
+#include <string>
+
+strings s = "Capivalivro";
+s.push_back('m'); // "Capivalivrom"
+s.erase(4, s.size() - 5); // "Capim"
+s.find("pi"); // 2
+s.substr(1, 4); // "api"
+----
+
+=== Algorithm
+
+*any_of(beg, end, eval)*: Retorna `true` se algum dos elementos são avaliados como `true` pela função eval.
+
+*all_of(beg, end, eval)*: Retorna `true` se todos os elementos são avaliados como `true` pela função eval.
+
+*none_of(beg, end, eval)*:  Retorna `true` se nenhum elemento é avaliado como `true` pela função eval.
+
+*for_each(beg, end, proc)*: Executa a função `void proc(T a)` para cada elemento.
+
+*count(beg, end, v)*: Conta quantos elementos são iguais a v;
+
+*count_if(beg, end, eval)*: Conta quantos elementos são avaliados como `true` pela função eval.
+
+*fill(beg, end, v)*: Atribui v a todos os elementos
+
+*generate(beg, end, acc)*: Atribui a cada posição um valor retornado por `T acc()`.
+
+*remove(beg, end, v)*: Remove todos os elementos iguais a v. Retorna um ponteiro para o novo final.
+
+*remove_if(beg, end, eval)*: Remove todos elementos em que `eval` retorna `true`.
+
+*replace(beg, end, u, v)*: Substitui por v todos os elementos iguais a u
+
+*replace_if(beg, end, eval, v)*: Substitui por v todos os elementos onde `eval` retorna `true`
+
+*swap(a, b)*: Troca duas coleções.
+
+*reverse(beg, end)*: Inverte a ordem
+
+*rotate(beg, beg + i, end)*: Rotaciona a coleção de forma em que o i-ésimo elemento fique em primeiro.
+
+*random_shuffle(beg, end)*: Aplica permutação aleatória
+
+*unique(beg, end)*: Remove todos os elementos duplicados consecutivos. Retorna um ponteiro para o novo fim.
+
+*partition(beg, end, eval)*: Reordena de forma que todos os elementos avaliados como true fiquem antes dos avaliados como false.
+
+*stable_partition(beg, end, eval)*: O mesmo de partition, mas mantém as ordens relativas.
+
+*is_sorted(beg, end)*: Verifica se o intervalo está ordenado.
+
+*sort(beg, end)*: Ordena o intervalo.
+
+*stable_sort(beg, end)*: Ordena o intervalo mantendo as ordens relativas.
+
+*nth_element(beg, beg+n, beg)*: Realiza a partição do intervalo de modo que o n-ésimo fique no lugar, com os menores antes e os maiores depois.
+
+*lower_bound(beg, end, v)*: Retorna um iterador ao primeiro elemento maior ou igual a v.
+
+*upper_bound(beg, end, v)*: Retorna um iterados ao primeiro elemento maior que v.
+
+*binary_search(beg, end, v)*: Retorna se v está no intervalo.
+
+*make_heap(beg, end)*: Transforma o intervalo em um heap de máximo.
+
+*push_heap(beg, end, v)*: Adiciona ao heap.
+
+*pop_heap(beg, end)*: Remove o maior elemento do heap.
+
+*sort_heap(beg, end)*: Ordena o heap de forma crescente.
+
+*max(a, b)*: Retorna o maior entre a e b.
+
+*min(a, b)*: Retorna o menor entre a e b.
+
+*max_element(beg, end)*: Retorna um ponteiro para o maior elemento no intervalo.
+
+*min_element(beg, end)*: Retorna um ponteiro para o menor elemento no intervalo.
+
+*next_permutation(beg, end)*: Reordena para a próxima permutação lexicográfica.
+
+*prev_permutation(beg, end):* Reordena para a permutação lexicográfica anterior.
+
+*accumulate(beg, end, acc)*: Soma todos os elementos a partir do valor inicial `acc`.
+
+*partial_sum(beg, end)*: Transforma o intervalo em um array de somas parciais.
