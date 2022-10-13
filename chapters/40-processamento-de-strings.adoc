@@ -1,0 +1,23 @@
+=== Knuth-Morris-Pratt
+
+Inicializar a classe com a string a ser procurada.
+
+.Aplicações
+- Encontrar uma substring em uma string
+- Contar a quantidade de ocorrências de cada prefixo
+- Número de substrings diferentes em uma string
+- Comprimir uma string
+
+[source, c++]
+----
+include::../code/c++/kmp.cpp[]
+----
+
+=== Distância de Levenshtein
+
+Dadas duas strings, descobrir quantas operações são necessárias para que elas se tornem iguais. As operações podem ser: remover caractere, adicionar caractere e trocar caractere.
+
+[source, c++]
+----
+include::../code/c++/levenshtein-distance.cpp[]
+----
