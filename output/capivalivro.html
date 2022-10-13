@@ -698,6 +698,28 @@ pre.rouge {
 <li><a href="#_distância_de_levenshtein">Distância de Levenshtein</a></li>
 </ul>
 </li>
+<li><a href="#_combinatória">Combinatória</a>
+<ul class="sectlevel2">
+<li><a href="#_regra_da_soma">Regra da Soma</a></li>
+<li><a href="#_regra_do_produto">Regra do Produto</a></li>
+<li><a href="#_inclusão_exclusão">Inclusão-Exclusão</a></li>
+<li><a href="#_combinação">Combinação</a></li>
+<li><a href="#_arranjo">Arranjo</a></li>
+<li><a href="#_multiset">Multiset</a></li>
+<li><a href="#_coeficiente_binomial">Coeficiente Binomial</a></li>
+<li><a href="#_fibonacci">Fibonacci</a></li>
+<li><a href="#_catalan">Catalan</a></li>
+</ul>
+</li>
+<li><a href="#_teoria_dos_números">Teoria dos Números</a>
+<ul class="sectlevel2">
+<li><a href="#_teste_de_primalidade">Teste de Primalidade</a></li>
+<li><a href="#_fatoração">Fatoração</a></li>
+<li><a href="#_primos_relativos">Primos Relativos</a></li>
+<li><a href="#_mdc_e_mmc">MDC e MMC</a></li>
+<li><a href="#_busca_ciclos_lebre_e_tartaruga">Busca Ciclos (lebre e tartaruga)</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -1439,11 +1461,305 @@ pre.rouge {
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_combinatória">Combinatória</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_regra_da_soma">Regra da Soma</h3>
+<div class="paragraph">
+<p>Se A tem |A| elementos e B tem |B| elementos, então existem |A| + |B| maneiras de escolher elementos de A <strong>ou</strong> de B. Assumindo que os elementos são distintos.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_regra_do_produto">Regra do Produto</h3>
+<div class="paragraph">
+<p>Se A tem |A| elementos e B tem |B| elementos, então existem |A| x |B| maneiras de escolher um elemento de A <strong>e</strong> um de B. Assumindo que os elementos são independentes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inclusão_exclusão">Inclusão-Exclusão</h3>
+<div class="paragraph">
+<p>Para 2:
+\$|A uu B| = |A| + |B| - |A nn B|\$</p>
+</div>
+<div class="paragraph">
+<p>Para 3:
+\$|A uu B uu C| = |A| + |B| + |C| - |A nn B| - |A nn C| - |B nn C| + |A nn B nn C|\$</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_combinação">Combinação</h3>
+<div class="paragraph">
+<p>Existem \$(n!)/(k!(n - k)!)\$ maneiras de escolher <em>k</em> pessoas de um grupo de <em>n</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_arranjo">Arranjo</h3>
+<div class="paragraph">
+<p>Existem \$(n!)/((n - k)!)\$ maneiras de escolher <em>k</em> pessoas de um grupo de <em>n</em>, se importa a ordem de escolha.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_multiset">Multiset</h3>
+<div class="paragraph">
+<p>Existem \$((n+k-1),(k))\$ maneiras de escolher <em>k</em> pessoas de um grupo de <em>n</em>, se não importa a ordem e pode repetir.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_coeficiente_binomial">Coeficiente Binomial</h3>
+<div class="paragraph">
+<p>\$((n),(k)) = (n!)/(k!(n-k)!)\$: Número de combinações de <em>k</em> elementos de um conjunto <em>n</em>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c++"><span class="kt">long</span> <span class="nf">binomial_coefficient</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">C</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+  <span class="n">memset</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">C</span><span class="p">));</span>
+
+  <span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">);</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">C</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">C</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">C</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fibonacci">Fibonacci</h3>
+<div class="paragraph">
+<p>Definida pela recorrência \$F_n = F_(n-1) + F_(n-2) ", com " F_0 = 0 " e " F_1 = 1\$</p>
+</div>
+<div class="paragraph">
+<p>Fórmula Fechada:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\$F_n = (1)/(sqrt(5))(((1+sqrt(5))/(2))^n - ((1 - sqrt(5))/(2))^n)\$
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_catalan">Catalan</h3>
+<div class="paragraph">
+<p>Definida pela recorrência \$C_n = sum_(k = 0)^(n-1) C_kC_(n-1-k)\$</p>
+</div>
+<div class="paragraph">
+<p>Fórmula fechada:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\$C_n = (1)/(n+1) ((2n), (n))\$
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_teoria_dos_números">Teoria dos Números</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_teste_de_primalidade">Teste de Primalidade</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Pré-processamento: Gerar primos \$&lt;= 10.000.000\$ pelo Crivo de Eratóstenes</p>
+</li>
+<li>
+<p>Verificação: Se \$n &lt;= 10.000.000\$ usar marcação do crivo.</p>
+</li>
+<li>
+<p>Senão testar divisibilidade com os primos do crivo</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Só funciona se \$n &lt;= 100.000.000.000.000\$
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">long</span> <span class="kt">long</span> <span class="n">_tam_crivo</span><span class="p">;</span>
+<span class="n">bitset</span><span class="o">&lt;</span><span class="mi">10000010</span><span class="o">&gt;</span> <span class="n">bs</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">primos</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">crivo</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">limite</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">_tam_crivo</span> <span class="o">=</span> <span class="n">limite</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">bs</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
+  <span class="n">bs</span><span class="p">.</span><span class="n">flip</span><span class="p">();</span>
+  <span class="n">bs</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+  <span class="n">bs</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">_tam_crivo</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bs</span><span class="p">.</span><span class="n">test</span><span class="p">((</span><span class="kt">size_t</span><span class="p">)</span><span class="n">i</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">_tam_crivo</span><span class="p">;</span> <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">bs</span><span class="p">.</span><span class="n">set</span><span class="p">((</span><span class="kt">size_t</span><span class="p">)</span><span class="n">j</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+      <span class="n">primos</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">i</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span> <span class="c1">// Chamar na função main</span>
+
+<span class="kt">bool</span> <span class="n">is_prime</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="n">_tam_crivo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">bs</span><span class="p">.</span><span class="n">test</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">primos</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="n">primos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="c1">// Só funciona se n &lt;= que o último primo do vetor primos</span>
+
+  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fatoração">Fatoração</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c++"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">primeFactors</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">factors</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="n">pf_idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pf</span> <span class="o">=</span> <span class="n">primos</span><span class="p">[</span><span class="n">pf_idx</span><span class="p">];</span> <span class="c1">// Primos gerados pelo crivo</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="n">n</span> <span class="o">!=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">pf</span> <span class="o">*</span> <span class="n">pf</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="n">pf</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">n</span> <span class="o">/=</span> <span class="n">pf</span><span class="p">;</span>
+      <span class="n">factors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">pf</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">pf</span> <span class="o">=</span> <span class="n">primos</span><span class="p">[</span><span class="o">++</span><span class="n">pf_idx</span><span class="p">];</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">factors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">factors</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_número_de_divisores">Número de Divisores</h4>
+<div class="paragraph">
+<p>Se \$N = a^i times b^j times ... times c^k\$ é a fatoração, então N tem \$(i+1) times (j+1) times ... times (k+1)\$ divisores</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_primos_relativos">Primos Relativos</h3>
+<div class="paragraph">
+<p>Quantos números \$&lt; n\$ são relativamente primos com <em>n</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c++"><span class="kt">int</span> <span class="nf">euler_phi</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">factors</span> <span class="o">=</span> <span class="n">primeFactors</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+  <span class="k">auto</span> <span class="n">new_end</span> <span class="o">=</span> <span class="n">unique</span><span class="p">(</span><span class="n">factors</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">factors</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+  <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">factors</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">new_end</span><span class="p">;</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">-</span> <span class="n">result</span> <span class="o">/</span> <span class="o">*</span><span class="n">it</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mdc_e_mmc">MDC e MMC</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c++"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">mdc</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="n">a</span> <span class="o">:</span> <span class="n">mdc</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">));;</span>
+<span class="p">}</span>
+
+<span class="kt">long</span> <span class="kt">long</span> <span class="n">mmc</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span> <span class="o">/</span> <span class="n">mdc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)));</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_busca_ciclos_lebre_e_tartaruga">Busca Ciclos (lebre e tartaruga)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c++"><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">floyd_cycle_finding</span><span class="p">(</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">tart</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x0</span><span class="p">),</span> <span class="n">lebr</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x0</span><span class="p">));</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">lebr</span> <span class="o">!=</span> <span class="n">tart</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">tart</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">tart</span><span class="p">);</span>
+    <span class="n">lebr</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">lebr</span><span class="p">));</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">mu</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">lebr</span> <span class="o">=</span> <span class="n">tart</span><span class="p">;</span>
+  <span class="n">tart</span> <span class="o">=</span> <span class="n">x0</span><span class="p">;</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="n">lebr</span> <span class="o">!=</span> <span class="n">tart</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">tart</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">tart</span><span class="p">);</span>
+    <span class="n">lebr</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">lebr</span><span class="p">);</span>
+    <span class="n">mu</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">lamb</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">lebr</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">tart</span><span class="p">);</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="n">lebr</span> <span class="o">!=</span> <span class="n">tart</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">lebr</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">lebr</span><span class="p">);</span>
+    <span class="n">lamb</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">make_pair</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">lamb</span><span class="p">);</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-12 23:27:15 -0300
+Last updated 2022-10-13 17:26:34 -0300
 </div>
 </div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
