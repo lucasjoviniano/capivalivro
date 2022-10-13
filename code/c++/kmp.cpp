@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 class KMP {
   string p;
   vector<int> v;
