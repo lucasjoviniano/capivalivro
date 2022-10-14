@@ -2,6 +2,7 @@
 :author: Lucas Joviniano 
 :email: lucas.joviniano@ufv.br 
 :revdate: 07/10/2022
+:stem:
 :doctype: book
 :toc:
 :icons: font
@@ -9,6 +10,7 @@
 :lang: pt-BR 
 :source-highlighter: rouge
 :rouge-style: github
+:title-logo-image: image:images/CAPIVARA.png[pdfwidth=2.5in, align=center]
 
 == Introdução
 include::chapters/10-intro.adoc[]
@@ -21,6 +23,12 @@ include::chapters/30-estruturas-de-dados.adoc[]
 
 == Processamento de Strings
 include::chapters/40-processamento-de-strings.adoc[]
+
+== Combinatória
+include::chapters/50-combinatoria.adoc[]
+
+== Teoria dos Números
+include::chapters/60-teoria-dos-numeros.adoc[]
 
 ifdef::backend-docbook[]
 [index]

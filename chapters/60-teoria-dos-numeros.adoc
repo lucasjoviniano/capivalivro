@@ -1,0 +1,47 @@
+=== Teste de Primalidade
+
+- Pré-processamento: Gerar primos stem:[<= 10.000.000] pelo Crivo de Eratóstenes
+- Verificação: Se stem:[n <= 10.000.000] usar marcação do crivo.
+- Senão testar divisibilidade com os primos do crivo
+
+WARNING: Só funciona se stem:[n <= 100.000.000.000.000]
+
+[source, c++]
+----
+include::../code/c++/crivo.cpp[]
+----
+
+=== Fatoração
+
+[source, c++]
+----
+include::../code/c++/fatoracao.cpp[]
+----
+
+==== Número de Divisores
+
+Se stem:[N = a^i times b^j times ... times c^k] é a fatoração, então N tem stem:[(i+1) times (j+1) times ... times (k+1)] divisores
+
+=== Primos Relativos
+
+Quantos números stem:[< n] são relativamente primos com _n_
+
+[source, c++]
+----
+include::../code/c++/totiente-euler.cpp[]
+----
+
+=== MDC e MMC
+
+[source, c++]
+----
+include::../code/c++/mdc.cpp[]
+----
+
+
+=== Busca Ciclos (lebre e tartaruga)
+
+[source, c++]
+----
+include::../code/c++/busca-ciclos.cpp[]
+----

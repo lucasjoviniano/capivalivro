@@ -1,0 +1,59 @@
+=== Regra da Soma
+
+Se A tem |A| elementos e B tem |B| elementos, então existem |A| + |B| maneiras de escolher elementos de A *ou* de B. Assumindo que os elementos são distintos.
+
+=== Regra do Produto
+
+Se A tem |A| elementos e B tem |B| elementos, então existem |A| x |B| maneiras de escolher um elemento de A *e* um de B. Assumindo que os elementos são independentes.
+
+=== Inclusão-Exclusão
+
+
+Para 2:
+stem:[|A uu B| = |A| + |B| - |A nn B|]
+
+Para 3:
+stem:[|A uu B uu C| = |A| + |B| + |C| - |A nn B| - |A nn C| - |B nn C| + |A nn B nn C|]
+
+=== Combinação
+
+Existem stem:[(n!)/(k!(n - k)!)] maneiras de escolher _k_ pessoas de um grupo de _n_
+
+=== Arranjo
+
+Existem stem:[(n!)/((n - k)!)] maneiras de escolher _k_ pessoas de um grupo de _n_, se importa a ordem de escolha.
+
+=== Multiset
+
+Existem stem:[((n+k-1),(k))] maneiras de escolher _k_ pessoas de um grupo de _n_, se não importa a ordem e pode repetir.
+
+=== Coeficiente Binomial
+
+stem:[((n),(k)) = (n!)/(k!(n-k)!)]: Número de combinações de _k_ elementos de um conjunto _n_.
+
+[source, c++]
+----
+include::../code/c++/coeficientes-binomiais.cpp[]
+----
+
+=== Fibonacci
+
+Definida pela recorrência stem:[F_n = F_(n-1) + F_(n-2) ", com " F_0 = 0 " e " F_1 = 1]
+
+Fórmula Fechada:
+
+[stem]
+++++
+F_n = (1)/(sqrt(5))(((1+sqrt(5))/(2))^n - ((1 - sqrt(5))/(2))^n)
+++++
+
+=== Catalan
+
+Definida pela recorrência stem:[C_n = sum_(k = 0)^(n-1) C_kC_(n-1-k)]
+
+Fórmula fechada:
+
+[stem]
+++++
+C_n = (1)/(n+1) ((2n), (n))
+++++
