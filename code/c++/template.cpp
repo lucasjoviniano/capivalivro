@@ -18,7 +18,7 @@ ostream &operator<<(ostream &s, const pair <A, B> &p) {
 template<typename T>
 ostream &operator<<(ostream &s, const vector <T> &v) {
     s << "[";
-    for (auto it: c) s << it << " ";
+    for (auto it: v) s << it << " ";
     s << "]";
     return s;
 }
