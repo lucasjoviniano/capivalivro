@@ -13,7 +13,7 @@ void crivo(long long limite) {
   bs.set(1, false);
   for (long long i = 2; i <= _tam_crivo; i++) {
     if (bs.test((size_t)i)) {
-      for (long long j = i * i; j <= _tam_crivo; j += 1)
+      for (long long j = i * i; j <= _tam_crivo; j += i)
         bs.set((size_t)j, false);
       primos.push_back((int)i);
     }
