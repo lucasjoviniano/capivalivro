@@ -14,6 +14,6 @@ jobs:
             uses: addnab/docker-run-action@v3
             with:
                 image: asciidoctor/docker-asciidoctor
-                options: -v ${{ github.workspace }}:/documents/
+                options: -it -v ${{ github.workspace }}:/documents/
                 run: |
                     rake
