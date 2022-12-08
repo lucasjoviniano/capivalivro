@@ -1,0 +1,108 @@
+=== Vetores
+
+- Dados dois pontos A e B, o vetor stem:[vec V = vec(AB)] é dado por stem:[B-A].
+
+Sejam stem:[\vec{U}, \vec{V}\ e \ \vec{W}] três vetores e stem:[\alpha, \beta] escalares.
+
+- stem:[vec U + vec V = vec V + vec U]
+- stem:[(vec U + vec V) + vec W = vec U + (vec V + vec W)]
+- stem:[alpha(beta vec U) = (alpha beta)vec U]
+- stem:[alpha(vec U + vec V) = alpha vecU + alpha vec V]
+- stem:[(alpha + beta) vec U = alpha vec U + beta vec U]
+
+==== Norma
+stem:[d^2 = norm(vec V)^2 = x^2 + y^2 + z^2]
+
+==== Produto Escalar
+
+stem:[vec V cdot vec U = norm(vec V) cdot norm(vec U) cdot cos theta]
+
+Com stem:[theta] sendo o menor ângulo formado pelos dois vetores.
+
+stem:[vec V cdot vec U = v_1u_1 + v_2u_2 + v_3u_3]
+
+===== Propriedades
+
+- stem:[vec U cdot vec V = vec V cdot vec U]
+- stem:[vec U cdot (vec V + vec W) = vec U cdot vec V + vec U cdot vec W]
+- stem:[alpha (vec U cdot vec V) = (alpha vec U) cdot vec V = vec U cdot (alpha vec V)]
+- stem:[vec V cdot vec V = norm(vec V)^2]
+- stem:[vec V cdot vec W = 0 <=> theta = 90^o]
+
+==== Projeção Ortogonal
+
+[stem]
+++++
+proj_(vec w) vec V = ((vec V cdot vec W) vecW) / norm(vec W)^2
+++++
+
+==== Produto Vetorial
+
+Em 3D:
+[stem]
+++++
+vec V times vec U = (|[v_2,v_3], [w_2,w_3]|, - |[v_1, v_3],[w_1, w_3]|, |[v_1, v_2], [w_1, w_2]|)
+++++
+
+Em 2D:
+[stem]
+++++
+vec V times vec U = v_1 u_2 - v_2 u_1
+++++
+
+===== Norma
+[stem]
+++++
+norm(vec V times vec W) = norm(vec V) cdot norm(vec W) cdot sin theta
+++++
+
+Onde stem:[theta] é o ângulo formado entre stem:[vec V text( e ) vec W].
+
+===== Propriedades
+
+- stem:[vec V times vec W = - vec W times Vec V]
+- stem:[vec V times vec W = 0 <=> vec V = alpha vec W]
+- stem:[(vec V times vec W) cdot vec V = (vec V times vec W) cdot vec vec W = 0]
+- stem:[alpha (vec V times vec W) = (alpha vec V) times vec W = vec V times (alpha vec W)]
+- stem:[vec V times (vec U + vec W) = vec V times vec U + vec V times vec W]
+
+==== Produto Misto
+
+[stem]
+++++
+(vec V times vec W) cdot vec U
+++++
+
+==== Codificação
+Quando o produto misto de três vetores é igual a 0, os quatro pontos que geraram o vetor estão no mesmo plano.
+
+[source, c++]
+----
+include::../code/c++/point.cpp[]
+----
+
+==== Interpolação Linear
+
+[stem]
+++++
+P(t) = (1 - t)P_1 + tP_2
+++++
+
+ou
+
+[stem]
+++++
+P(t) = P_1 + t(P_2 - P_1)
+++++
+
+==== Área de Polígonos
+[source, c++]
+----
+include::../code/c++/polygon_area.cpp[]
+----
+
+=== Convex Hull
+[source, c++]
+----
+include::../code/c++/point.cpp[]
+----

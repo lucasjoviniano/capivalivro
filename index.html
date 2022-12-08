@@ -732,11 +732,6 @@ pre.rouge {
 <li><a href="#_busca_ternária">Busca Ternária</a></li>
 </ul>
 </li>
-<li><a href="#_grafos">Grafos</a>
-<ul class="sectlevel2">
-<li><a href="#_grafos_2">Grafos</a></li>
-</ul>
-</li>
 </ul>
 </div>
 </div>
@@ -1897,67 +1892,7 @@ Só funciona se \$n &lt;= 100.000.000.000.000\$
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;cmath&gt;</span><span class="cp">
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-<span class="k">const</span> <span class="kt">double</span> <span class="n">EPS</span> <span class="o">=</span> <span class="mf">1e-10</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="nf">cmp</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="n">EPS</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">tol</span><span class="p">)</span> <span class="o">?</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">tol</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">)</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">struct</span> <span class="nc">Point</span> <span class="p">{</span>
-  <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
-
-  <span class="n">Point</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="p">{}</span>
-
-  <span class="n">Point</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span><span class="p">);</span> <span class="p">}</span>
-
-  <span class="n">Point</span> <span class="k">operator</span><span class="o">-</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span><span class="p">);</span> <span class="p">}</span>
-
-  <span class="n">Point</span> <span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="kt">double</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">t</span><span class="p">);</span> <span class="p">}</span>
-
-  <span class="n">Point</span> <span class="k">operator</span><span class="o">/</span><span class="p">(</span><span class="kt">double</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span> <span class="o">/</span> <span class="n">t</span><span class="p">);</span> <span class="p">}</span>
-
-  <span class="c1">// Produto Escalar (Inner Product)</span>
-  <span class="kt">double</span> <span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="c1">// Produto vetorial (Cross Product)</span>
-  <span class="kt">double</span> <span class="k">operator</span><span class="o">^</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="kt">int</span> <span class="n">cmp</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="o">::</span><span class="n">cmp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span><span class="p">))</span>
-      <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
-    <span class="k">return</span> <span class="o">::</span><span class="n">cmp</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">cmp</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="kt">bool</span> <span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">cmp</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">cmp</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="k">friend</span> <span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">,</span> <span class="n">Point</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">o</span> <span class="o">&lt;&lt;</span> <span class="s">"("</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="s">")"</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="k">static</span> <span class="n">Point</span> <span class="n">pivot</span><span class="p">;</span>
-
-  <span class="kr">inline</span> <span class="k">static</span> <span class="kt">bool</span> <span class="n">ccw</span><span class="p">(</span><span class="n">Point</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="n">Point</span> <span class="o">&amp;</span><span class="n">q</span><span class="p">,</span> <span class="n">Point</span> <span class="o">&amp;</span><span class="n">r</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">::</span><span class="n">cmp</span><span class="p">((</span><span class="n">p</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">q</span> <span class="o">-</span> <span class="n">r</span><span class="p">));</span>
-  <span class="p">}</span>
-
-  <span class="kr">inline</span> <span class="k">static</span> <span class="kt">bool</span> <span class="n">collinear</span><span class="p">(</span><span class="n">Point</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="n">Point</span> <span class="o">&amp;</span><span class="n">q</span><span class="p">,</span> <span class="n">Point</span> <span class="o">&amp;</span><span class="n">r</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">::</span><span class="n">cmp</span><span class="p">((</span><span class="n">p</span> <span class="o">-</span> <span class="n">q</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">p</span><span class="p">));</span>
-  <span class="p">}</span>
-
-  <span class="kr">inline</span> <span class="k">static</span> <span class="kt">double</span> <span class="n">dist</span><span class="p">(</span><span class="n">Point</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="n">Point</span> <span class="o">&amp;</span><span class="n">q</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">hypot</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">q</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">q</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="n">Point</span> <span class="n">Point</span><span class="o">::</span><span class="n">pivot</span><span class="p">;</span>
-<span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span> <span class="n">Polygon</span><span class="p">;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="c++"><span class="n">Unresolved</span> <span class="n">directive</span> <span class="n">in</span> <span class="n">chapters</span><span class="o">/</span><span class="mi">70</span><span class="o">-</span><span class="n">geometria</span><span class="p">.</span><span class="n">adoc</span> <span class="o">-</span> <span class="n">include</span><span class="o">::</span><span class="p">..</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">c</span><span class="o">++/</span><span class="n">vetor</span><span class="p">.</span><span class="n">cpp</span><span class="p">[]</span></code></pre>
 </div>
 </div>
 </div>
@@ -2008,71 +1943,7 @@ Só funciona se \$n &lt;= 100.000.000.000.000\$
 </div>
 <div class="sect2">
 <h3 id="_convex_hull">Convex Hull</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;cmath&gt;</span><span class="cp">
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-<span class="k">const</span> <span class="kt">double</span> <span class="n">EPS</span> <span class="o">=</span> <span class="mf">1e-10</span><span class="p">;</span>
 
-<span class="kt">int</span> <span class="nf">cmp</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">double</span> <span class="n">tol</span> <span class="o">=</span> <span class="n">EPS</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">tol</span><span class="p">)</span> <span class="o">?</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">tol</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">)</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">struct</span> <span class="nc">Point</span> <span class="p">{</span>
-  <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
-
-  <span class="n">Point</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="p">{}</span>
-
-  <span class="n">Point</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span><span class="p">);</span> <span class="p">}</span>
-
-  <span class="n">Point</span> <span class="k">operator</span><span class="o">-</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span><span class="p">);</span> <span class="p">}</span>
-
-  <span class="n">Point</span> <span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="kt">double</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">t</span><span class="p">);</span> <span class="p">}</span>
-
-  <span class="n">Point</span> <span class="k">operator</span><span class="o">/</span><span class="p">(</span><span class="kt">double</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span> <span class="o">/</span> <span class="n">t</span><span class="p">);</span> <span class="p">}</span>
-
-  <span class="c1">// Produto Escalar (Inner Product)</span>
-  <span class="kt">double</span> <span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="c1">// Produto vetorial (Cross Product)</span>
-  <span class="kt">double</span> <span class="k">operator</span><span class="o">^</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="kt">int</span> <span class="n">cmp</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="o">::</span><span class="n">cmp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span><span class="p">))</span>
-      <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
-    <span class="k">return</span> <span class="o">::</span><span class="n">cmp</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">cmp</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="kt">bool</span> <span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">cmp</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">cmp</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="k">friend</span> <span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">,</span> <span class="n">Point</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">o</span> <span class="o">&lt;&lt;</span> <span class="s">"("</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="s">")"</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="k">static</span> <span class="n">Point</span> <span class="n">pivot</span><span class="p">;</span>
-
-  <span class="kr">inline</span> <span class="k">static</span> <span class="kt">bool</span> <span class="n">ccw</span><span class="p">(</span><span class="n">Point</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="n">Point</span> <span class="o">&amp;</span><span class="n">q</span><span class="p">,</span> <span class="n">Point</span> <span class="o">&amp;</span><span class="n">r</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">::</span><span class="n">cmp</span><span class="p">((</span><span class="n">p</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">q</span> <span class="o">-</span> <span class="n">r</span><span class="p">));</span>
-  <span class="p">}</span>
-
-  <span class="kr">inline</span> <span class="k">static</span> <span class="kt">bool</span> <span class="n">collinear</span><span class="p">(</span><span class="n">Point</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="n">Point</span> <span class="o">&amp;</span><span class="n">q</span><span class="p">,</span> <span class="n">Point</span> <span class="o">&amp;</span><span class="n">r</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">::</span><span class="n">cmp</span><span class="p">((</span><span class="n">p</span> <span class="o">-</span> <span class="n">q</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">p</span><span class="p">));</span>
-  <span class="p">}</span>
-
-  <span class="kr">inline</span> <span class="k">static</span> <span class="kt">double</span> <span class="n">dist</span><span class="p">(</span><span class="n">Point</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="n">Point</span> <span class="o">&amp;</span><span class="n">q</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">hypot</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">q</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">q</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="n">Point</span> <span class="n">Point</span><span class="o">::</span><span class="n">pivot</span><span class="p">;</span>
-<span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span> <span class="n">Polygon</span><span class="p">;</span></code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -2170,167 +2041,10 @@ Só funciona se \$n &lt;= 100.000.000.000.000\$
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_grafos">Grafos</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_grafos_2">Grafos</h3>
-<div class="sect3">
-<h4 id="_depth_first_search">Depth - First Search</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="c++"><span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">graph</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">visited</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">u</span> <span class="o">:</span> <span class="n">graph</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
-      <span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">visited</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_breadth_first_search">Breadth - First Search</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="c++"><span class="kt">void</span> <span class="nf">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">graph</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">visited</span><span class="p">,</span>
-         <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
-
-  <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
-  <span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-  <span class="n">p</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-
-  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">v</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
-    <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">u</span> <span class="o">:</span> <span class="n">graph</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="p">{</span>
-        <span class="n">visited</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-        <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
-        <span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="n">p</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">retrieve_path</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">visited</span><span class="p">,</span> <span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="p">{</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"No path!"</span><span class="p">;</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">path</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span> <span class="n">v</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">v</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
-      <span class="n">path</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
-    <span class="n">reverse</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">path</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Path: "</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span> <span class="o">:</span> <span class="n">path</span><span class="p">)</span>
-      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_ordenação_topológica">Ordenação Topológica</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="c++"><span class="c1">// Retorna a ordenação em ordem inversa</span>
-<span class="kt">void</span> <span class="nf">toposort</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">graph</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">visited</span><span class="p">,</span>
-              <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">order</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">visited</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">v</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">graph</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">size</span><span class="p">();</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">graph</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
-      <span class="n">toposort</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="n">order</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="n">order</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
-<span class="p">}</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_tarjan">Tarjan</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="c++"><span class="kt">void</span> <span class="nf">tarjan</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">adj</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">dfsParent</span><span class="p">,</span>
-            <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">dfsNum</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">dfsLow</span><span class="p">,</span>
-            <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">isArticulation</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">bridges</span><span class="p">,</span>
-            <span class="kt">int</span> <span class="o">&amp;</span><span class="n">dfsCount</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">rootChildren</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dfsRoot</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">dfsLow</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfsNum</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="o">++</span><span class="n">dfsCount</span><span class="p">;</span> <span class="c1">// dfsLow[u] &lt;= dfsNum[u]</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span> <span class="o">:</span> <span class="n">adj</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="p">{</span>
-    <span class="c1">// vertices nao descobertos tem tempo de descoberto (dfsNum) 0</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">dfsNum</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">dfsParent</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span> <span class="c1">// pai de v e' u (v foi descoberto por u)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">==</span> <span class="n">dfsRoot</span><span class="p">)</span> <span class="c1">// caso especial... precisamos contar quantas vezes</span>
-                        <span class="c1">// descobrimos vertices a partir da raiz para descobrir</span>
-                        <span class="c1">// se raiz e' articulacao...</span>
-        <span class="n">rootChildren</span><span class="o">++</span><span class="p">;</span>
-
-      <span class="n">tarjan</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">adj</span><span class="p">,</span> <span class="n">dfsParent</span><span class="p">,</span> <span class="n">dfsNum</span><span class="p">,</span> <span class="n">dfsLow</span><span class="p">,</span> <span class="n">isArticulation</span><span class="p">,</span> <span class="n">bridges</span><span class="p">,</span>
-             <span class="n">dfsCount</span><span class="p">,</span> <span class="n">rootChildren</span><span class="p">,</span> <span class="n">dfsRoot</span><span class="p">);</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="n">dfsLow</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">dfsNum</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="c1">// apos visitar v recursivamente, conseguimos</span>
-                                  <span class="c1">// chegar em um vertice em v ou antes passando</span>
-                                  <span class="c1">// por u? (sem voltar pela aresta v,u)</span>
-        <span class="n">isArticulation</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="c1">// store this information first</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">dfsLow</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">dfsNum</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>  <span class="c1">// ponte?</span>
-        <span class="n">bridges</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">));</span>
-      <span class="n">dfsLow</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">dfsLow</span><span class="p">[</span><span class="n">u</span><span class="p">],</span> <span class="n">dfsLow</span><span class="p">[</span><span class="n">v</span><span class="p">]);</span> <span class="c1">// update dfsLow[u]</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">v</span> <span class="o">!=</span> <span class="n">dfsParent</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="c1">// cheguei de volta em um vertice ja</span>
-                                  <span class="c1">// descoberto... se nao passei pela aresta v,u</span>
-                                  <span class="c1">// de volta --&gt; ciclo...</span>
-      <span class="n">dfsLow</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">dfsLow</span><span class="p">[</span><span class="n">u</span><span class="p">],</span> <span class="n">dfsNum</span><span class="p">[</span><span class="n">v</span><span class="p">]);</span> <span class="c1">// atualize dfsLow...</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">tarjan</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">adj</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">isArticulation</span><span class="p">,</span>
-            <span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">bridges</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">nv</span> <span class="o">=</span> <span class="n">adj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-  <span class="n">isArticulation</span> <span class="o">=</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="n">nv</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
-  <span class="n">bridges</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-
-  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dfsParent</span><span class="p">(</span><span class="n">nv</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dfsLow</span><span class="p">(</span><span class="n">nv</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dfsNum</span><span class="p">(</span><span class="n">nv</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-  <span class="kt">int</span> <span class="n">dfsCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-  <span class="c1">// para multiplos CCs ...</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nv</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">dfsNum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kt">int</span> <span class="n">rootChildren</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// resete para cada CC!!</span>
-      <span class="n">tarjan</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">adj</span><span class="p">,</span> <span class="n">dfsParent</span><span class="p">,</span> <span class="n">dfsNum</span><span class="p">,</span> <span class="n">dfsLow</span><span class="p">,</span> <span class="n">isArticulation</span><span class="p">,</span> <span class="n">bridges</span><span class="p">,</span>
-             <span class="n">dfsCount</span><span class="p">,</span> <span class="n">rootChildren</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-      <span class="n">isArticulation</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rootChildren</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_caminho_mínimo_floyd_warshall">Caminho Mínimo: Floyd - Warshall</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="c++"><span class="c1">// Espera uma matriz de adjacência</span>
-<span class="kt">void</span> <span class="nf">floyd_warshall</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">graph</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">graph</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">graph</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">graph</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-        <span class="n">graph</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">graph</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">graph</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
-<span class="p">}</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-08 18:01:46 -0300
+Last updated 2022-10-26 16:17:20
 </div>
 </div>
 <script type="text/x-mathjax-config">

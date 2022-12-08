@@ -1,7 +1,7 @@
 = Capivalivro 
 :author: Lucas Joviniano 
 :email: lucas.joviniano@ufv.br 
-:revdate: 07/10/2022
+:revdate: 24/10/2022
 :stem:
 :doctype: book
 :toc:
@@ -29,6 +29,15 @@ include::chapters/50-combinatoria.adoc[]
 
 == Teoria dos Números
 include::chapters/60-teoria-dos-numeros.adoc[]
+
+== Geometria
+include::chapters/70-geometria.adoc[]
+
+== Paradigmas de Programação 
+include::chapters/80-paradigmas.adoc[]
+
+== Grafos
+include::chapters/90-grafos.adoc[]
 
 ifdef::backend-docbook[]
 [index]

@@ -1,0 +1,11 @@
+=== Busca Binária
+[source, c++]
+----
+include::../code/c++/binary_search.cpp[]
+----
+
+=== Busca Ternária
+[source, c++]
+----
+include::../code/c++/ternary_search.cpp[]
+----
